@@ -46,6 +46,52 @@ NAME                               STATUS   ROLES                  AGE   VERSION
 422398077f99efb5bf4475df395f65f3   Ready    control-plane,master   77d   v1.24.9+vmware.wcp.1
 [root@localhost minio]#
 
+kubectl get virtualmachineclassbindings
+
+NAME                  AGE
+best-effort-2xlarge   76d
+best-effort-4xlarge   76d
+best-effort-8xlarge   76d
+best-effort-large     76d
+best-effort-medium    76d
+best-effort-small     76d
+best-effort-xlarge    76d
+best-effort-xsmall    76d
+guaranteed-2xlarge    76d
+guaranteed-4xlarge    76d
+guaranteed-8xlarge    76d
+guaranteed-large      76d
+guaranteed-medium     76d
+guaranteed-small      76d
+guaranteed-xlarge     76d
+guaranteed-xsmall     76d
+
+kubectl get virtualmachineimages
+
+NAME                                                                        PROVIDER-NAME                          CONTENT-LIBRARY-NAME   IMAGE-NAME                                                                  VERSION                                 OS-TYPE               FORMAT   AGE
+centos-stream-8-vmservice-v1alpha1-1638306496810                            49cd0e81-beee-487c-925d-ded803265fa3                          centos-stream-8-vmservice-v1alpha1-1638306496810                                                                    centos8_64Guest       ovf      41m
+ob-15957779-photon-3-k8s-v1.16.8---vmware.1-tkg.3.60d2ffd                   4d3b8db5-bf50-453f-b7d9-adc11e03fc79                          ob-15957779-photon-3-k8s-v1.16.8---vmware.1-tkg.3.60d2ffd                   v1.16.8+vmware.1-tkg.3.60d2ffd          vmwarePhoton64Guest   ovf      77d
+.
+.
+.
+ob-22187091-ubuntu-2004-amd64-vmi-k8s-v1.26.5---vmware.2-fips.1-tkg.1       4d3b8db5-bf50-453f-b7d9-adc11e03fc79                          ob-22187091-ubuntu-2004-amd64-vmi-k8s-v1.26.5---vmware.2-fips.1-tkg.1       v1.26.5+vmware.2-fips.1                 ubuntu64Guest         ovf      37h
+
+
+kubectl get resourcequotas
+
+NAME                         AGE   REQUEST                                                                                               LIMIT
+namespace1000-storagequota   76d   pacific-gold-storage-policy.storageclass.storage.k8s.io/requests.storage: 203Gi/9223372036854775807   
+
+k get sc
+
+NAME                          PROVISIONER              RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+pacific-gold-storage-policy   csi.vsphere.vmware.com   Delete          Immediate           true                   76d
+
+kubectl get network
+
+NAME    AGE
+work1   76d
+
 ```
 
 Generate a key for the VM on your jump server
