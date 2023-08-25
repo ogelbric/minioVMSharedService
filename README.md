@@ -26,6 +26,12 @@ Import image into content lib
 
 Add the minio content lib to the vsphere namespace (my canse namespace1000)
 
+![GitHub](add1.png)
+
+![GitHub](add2.png)
+
+![GitHub](add3.png)
+
 
 Check on the image
 
