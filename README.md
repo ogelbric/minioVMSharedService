@@ -273,4 +273,14 @@ tmclocalcluster-node-pool-1-w28f7-674bc67d88-tk6c9   poweredOn     44d
 tmclocalcluster-node-pool-1-w28f7-674bc67d88-wfkp5   poweredOn     44d
 
 ```
+The services 22/9000
 
+```
+k get svc
+
+NAME                                    TYPE           CLUSTER-IP    EXTERNAL-IP     PORT(S)                       AGE
+minio-vmservices                        LoadBalancer   10.96.1.225   192.168.2.106   22:31874/TCP,9000:31536/TCP   3m26s
+tmclocalcluster-7b60c68b359bfa1d6aaad   LoadBalancer   10.96.1.157   192.168.2.105   80:31248/TCP,443:32429/TCP    37d
+tmclocalcluster-control-plane-service   LoadBalancer   10.96.0.217   192.168.2.104   6443:32052/TCP                44d
+
+```
