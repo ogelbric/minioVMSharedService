@@ -302,4 +302,7 @@ ssh centos@192.168.2.106  'sudo grep credentials  /var/log/messages'
 Aug 25 15:52:33 centos-minio cloud-init[1802]: WARNING: Detected default credentials 'minioadmin:minioadmin', we recommend that you change these values with 'MINIO_ROOT_USER' and 'MINIO_ROOT_PASSWORD' environment variables
 
 ```
+Result
+
+![GitHub](result1.png)
 
