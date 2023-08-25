@@ -24,6 +24,24 @@ Import image into content lib
 
 ![GitHub](import2.png)
 
+Add the minio content lib to the vsphere namespace (my canse namespace1000)
+
+
+Check on the image
+
+```
+k config use-context namespace1000
+
+Switched to context "namespace1000".
+[root@localhost minio]# k get nodes
+NAME                               STATUS   ROLES                  AGE   VERSION
+4223110e3b11a02b6b177db0551f41ec   Ready    control-plane,master   77d   v1.24.9+vmware.wcp.1
+42234f3fd4ee6ad71dde6b4da15622e5   Ready    control-plane,master   77d   v1.24.9+vmware.wcp.1
+422398077f99efb5bf4475df395f65f3   Ready    control-plane,master   77d   v1.24.9+vmware.wcp.1
+[root@localhost minio]#
+
+```
+
 Generate a key for the VM on your jump server
 
 ```
