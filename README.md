@@ -178,4 +178,91 @@ I2Nsb3VkLWNvbmZpZwpjaHBhc3N3ZDoKICAgIGxpc3Q6IHwKICAgICAgY2VudG9zOlZNd2FyZTEhCiAg
 
 ```
 
+Create the vm.yaml file
+
+```
+
+# vm.yaml
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-pvc
+  namespace: namespace1000
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 4Gi
+  storageClassName: pacific-gold-storage-policy
+  volumeMode: Filesystem
+---
+apiVersion: vmoperator.vmware.com/v1alpha1
+kind: VirtualMachine
+metadata:
+  labels:
+    vm-selector: minio-centosvm
+  name: minio-centosvm
+  namespace: namespace1000
+spec:
+  imageName: centos-stream-8-vmservice-v1alpha1-1638306496810 #centos-stream-8-vmservice-v1alpha1-1619529007339
+  className: best-effort-small
+  powerState: poweredOn
+  storageClass: pacific-gold-storage-policy
+  networkInterfaces:
+#  - networkType: nsx-t
+  - networkType: vsphere-distributed
+    networkName: "work1"
+  volumes:
+  - name: my-centos-vol
+    persistentVolumeClaim:
+      claimName: minio-pvc
+  readinessProbe:
+    tcpSocket:
+      port: 22
+  vmMetadata:
+    configMapName: centos-cloudinit
+    transport: OvfEnv
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: centos-cloudinit
+    namespace: namespace1000
+data:
+  user-data: I2Nsb3VkLWNvbmZpZwpjaHBhc3N3ZDoKICAgIGxpc3Q6IHwKICAgICAgY2VudG9zOlZNd2FyZTEhCiAgICBleHBpcmU6IGZhbHNlCnNzaF9wd2F1dGg6IFRydWUKZ3JvdXBzOgogIC0gZG9ja2VyCnVzZXJzOgogIC0gZGVmYXVsdAogIC0gbmFtZTogY2VudG9zCiAgICBzc2gtYXV0aG9yaXplZC1rZXlzOgogICAgICAtIHNzaC1yc2EgQUFBQUIzTnphQzF5YzJFQUFBQURBUUFCQUFBQ0FRQ2p1QktwUXFIWVl0cFJDeVB4OWVKNFZndkZLd3E0eXNhVVcwaEVma0g5cWhFbHRDY1I3ZGI4bjVpa0hRa1Flc1RZZnRWMUZrYmhub1pYQTJTRFRMelVGL00yNFp5ekJWT1BQK2dvSmE1VUJpdzQvNk1Qd1ZjSytlcG1DeVVEUkRxVzBkdzRFTTEzeG1iK0kxUnEwUk1oODZNYUQzSTk5aVk4NDhGNjBRakxFVm9rb252YkkzZFI5ZWNwdXlkWHpQOVB0NFNjbjhZVEhKNXl3blowakNiTWg5SEp4Slh5TERVRFdHNWRQWVY5SSs3ditHQjkwVmFPY0xNcW1JTFdyVWsrdjJwbXBGRGZPQ0xmbktSOUhISFV1MlMrZ3cyd0ZpZVBvNFdnb0hNREttN3NSbGxoZUxoV1JWQWRQaFpFOGhzUm03c1pLMDcya1Ywc0VYc0tkS0IyMHdIRGdDbVl1T3hpWTJkUDRHWXJQL1VtMGpOM0liSUpEUlAxVk4ycnVaYzd2WTZUUlBUZkVCZGluZVZSUThXUUlPTGIzUndLODV4Rk0yQXU1azMzaW5PQTZ3T1dXbTlSTkdKd281UWZKTGdIVFhoUk8rdVBlZ2ZHRnlBWVdza3JIOUk5M0RnUFN5cFA5L1JCVjNDZXNadU8xcnNMUmd6d0JvT3lwRytaU3NSVkxEeEpWOWJnMVZZbDYxbmZ6eFVUdVFRVmtlcmhBbWVwd3o3c292SHFwVlE1dGhJWXJiS2tNVi9nSkJEb3VWYTZxRy9qdEl0QkN4QWE2VGxvazJsRTVNVmlQeGRJSUNkTFR1em13aHZqbFp0blA3USt1L0t0dUM2dzQ1YVdCVDhpdVcrd2Freno2d05md1NOVUczYTl2clZXVEJ3UVJSOGxqUXVLVlZRbnh3PT0gcm9vdEBsb2NhbGhvc3QubG9jYWxkb21haW4KICAgIHN1ZG86IEFMTD0oQUxMKSBOT1BBU1NXRDpBTEwKICAgIGdyb3Vwczogc3VkbywgZG9ja2VyCiAgICBzaGVsbDogL2Jpbi9iYXNoCm5ldHdvcms6CiAgdmVyc2lvbjogMgogIGV0aGVybmV0czoKICAgICAgZW5zMTkyOgogICAgICAgICAgZGhjcDQ6IHRydWUKcGFja2FnZV91cGRhdGU6IHRydWUKcGFja2FnZXM6CiAgLSBuZXQtdG9vbHMKcnVuY21kOgogIC0gY2QgL29wdAogIC0gd2dldCBodHRwczovL2RsLm1pbmlvLmlvL3NlcnZlci9taW5pby9yZWxlYXNlL2xpbnV4LWFtZDY0L21pbmlvCiAgLSBjaG1vZCAreCBtaW5pbwogIC0gbWtkaXIgL21udC9kYXRhCiAgLSAvb3B0L21pbmlvIHNlcnZlciAvbW50L2RhdGEKICAtIGZpcmV3YWxsLW9mZmxpbmUtY21kIC0tYWRkLXBvcnQ9OTAwMC90Y3AKICAtIGZpcmV3YWxsLWNtZCAtLXJlbG9hZAogIC0gc3lzdGVtY3RsIHJlc3RhcnQgc3NoZAo=
+  hostname: centos-minio
+---
+apiVersion: vmoperator.vmware.com/v1alpha1
+kind: VirtualMachineService
+metadata:
+  name: minio-vmservices
+spec:
+  ports:
+  - name: ssh
+    port: 22
+    protocol: TCP
+    targetPort: 22
+  - name: minio
+    port: 9000
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    vm-selector: minio-centosvm
+  type: LoadBalancer
+
+```
+Apply the vm.yaml file to namespace1000
+
+```
+k apply -f ./vm.yaml
+
+```
+
+Check on the vm
+
+```
+
+```
 
