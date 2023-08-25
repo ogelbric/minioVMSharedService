@@ -284,3 +284,11 @@ tmclocalcluster-7b60c68b359bfa1d6aaad   LoadBalancer   10.96.1.157   192.168.2.1
 tmclocalcluster-control-plane-service   LoadBalancer   10.96.0.217   192.168.2.104   6443:32052/TCP                44d
 
 ```
+
+ssh to the new VM and start trouble shooting 
+
+```
+ssh centos@192.168.2.106
+```
+
+(wget is not installed) 
