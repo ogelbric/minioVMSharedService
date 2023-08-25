@@ -263,6 +263,14 @@ k apply -f ./vm.yaml
 Check on the vm
 
 ```
+k get vm
+
+NAME                                                 POWER-STATE   AGE
+minio-centosvm                                       poweredOn     2m10s
+tmclocalcluster-db9s7-925bp                          poweredOn     44d
+tmclocalcluster-node-pool-1-w28f7-674bc67d88-jkk65   poweredOn     44d
+tmclocalcluster-node-pool-1-w28f7-674bc67d88-tk6c9   poweredOn     44d
+tmclocalcluster-node-pool-1-w28f7-674bc67d88-wfkp5   poweredOn     44d
 
 ```
 
