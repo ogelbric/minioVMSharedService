@@ -18,6 +18,12 @@ Create a new content library for the image
 
 ![GitHub](lib4.png)
 
+Import image into content lib
+
+![GitHub](import1.png)
+
+![GitHub](import2.png)
+
 Generate a key for the VM on your jump server
 
 ```
