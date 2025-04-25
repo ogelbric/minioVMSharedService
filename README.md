@@ -5,7 +5,10 @@
 Link to the special VMService VM on Marketplace (download) 
 
 ```
+This may not be wrking anymore
 https://marketplace.cloud.vmware.com/services/details/vm-service-image-for-centos1111?slug=true
+Other option ubuntu server image from here:
+https://vm-operator.readthedocs.io/en/docs-stable/concepts/images/vm-image/#recommended-images
 ```
 
 Create a new content library for the image
